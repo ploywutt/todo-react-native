@@ -1,18 +1,10 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import type { ComponentProps } from "react";
-
-export type TaskItem = {
-  id: string;
-  title: string;
-  time: string | null;
-  icon: ComponentProps<typeof MaterialCommunityIcons>["name"];
-  completed: boolean;
-};
+import type { TaskItem } from "@/lib/types/todo";
 
 export const TASKS: TaskItem[] = [
   {
     id: "1",
     title: "Study lesson",
+    date: null,
     time: null,
     icon: "book-open-variant",
     completed: false,
@@ -20,6 +12,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "2",
     title: "Run 5k",
+    date: null,
     time: "4:00pm",
     icon: "trophy-outline",
     completed: false,
@@ -27,6 +20,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "3",
     title: "Go to party",
+    date: null,
     time: "10:00pm",
     icon: "calendar-blank",
     completed: false,
@@ -34,6 +28,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "4",
     title: "Game meetup",
+    date: null,
     time: "1:00pm",
     icon: "calendar-blank",
     completed: true,
@@ -41,6 +36,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "5",
     title: "Take out trash",
+    date: null,
     time: null,
     icon: "book-open-variant",
     completed: true,

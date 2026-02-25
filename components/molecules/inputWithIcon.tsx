@@ -1,20 +1,30 @@
 import { TextInputField } from "@/components/atoms";
 import { TodoTheme } from "@/constants/theme";
+import type { IconName } from "@/lib/types/todo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import type { ComponentProps } from "react";
 import { StyleSheet, View } from "react-native";
-
-type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 
 type InputWithIconProps = {
   icon: IconName;
   placeholder: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
 };
 
-export const InputWithIcon = ({ icon, placeholder }: InputWithIconProps) => {
+export const InputWithIcon = ({
+  icon,
+  placeholder,
+  value,
+  onChangeText,
+}: InputWithIconProps) => {
   return (
     <View style={styles.inputWithIcon}>
-      <TextInputField placeholder={placeholder} style={styles.inputFlex} />
+      <TextInputField
+        placeholder={placeholder}
+        style={styles.inputFlex}
+        value={value}
+        onChangeText={onChangeText}
+      />
       <MaterialCommunityIcons
         name={icon}
         size={18}

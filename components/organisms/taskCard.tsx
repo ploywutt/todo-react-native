@@ -1,6 +1,6 @@
 import { TaskRow } from "@/components/molecules";
 import { TodoTheme } from "@/constants/theme";
-import type { TaskItem } from "@/lib/data/todo";
+import type { TaskItem } from "@/lib/types/todo";
 import { StyleSheet, View } from "react-native";
 
 type TaskCardProps = {

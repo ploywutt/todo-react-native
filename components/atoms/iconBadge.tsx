@@ -1,9 +1,7 @@
 import { TodoTheme } from "@/constants/theme";
+import type { IconName } from "@/lib/types/todo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import type { ComponentProps } from "react";
 import { StyleSheet, View } from "react-native";
-
-type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 
 type IconBadgeProps = {
   icon: IconName;

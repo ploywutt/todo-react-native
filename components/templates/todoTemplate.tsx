@@ -1,47 +1,36 @@
-import { Screen, SectionTitle } from "@/components/atoms";
-import { AddTaskButton, HeaderBlock } from "@/components/molecules";
+import { PrimaryButton, Screen, SectionTitle } from "@/components/atoms";
+import { HeaderBlock } from "@/components/molecules";
 import { TaskCard } from "@/components/organisms";
-import type { TaskItem } from "@/lib/data/todo";
+import { TodoTheme } from "@/constants/theme";
+import type { TaskItem } from "@/lib/types/todo";
 import { StatusBar } from "expo-status-bar";
-import { useMemo, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 
 type TodoTemplateProps = {
-  tasks: TaskItem[];
+  activeTasks: TaskItem[];
+  completedTasks: TaskItem[];
+  onToggleTask?: (taskId: string) => void;
+  onAddTask?: () => void;
 };
 
-export const TodoTemplate = ({ tasks }: TodoTemplateProps) => {
-  const [taskList, setTaskList] = useState(tasks);
-
-  const activeTasks = useMemo(
-    () => taskList.filter((task) => !task.completed),
-    [taskList],
-  );
-  const completedTasks = useMemo(
-    () => taskList.filter((task) => task.completed),
-    [taskList],
-  );
-
-  const handleToggleTask = (taskId: string) => {
-    setTaskList((prev) =>
-      prev.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task,
-      ),
-    );
-  };
-
+export const TodoTemplate = ({
+  activeTasks,
+  completedTasks,
+  onToggleTask,
+  onAddTask,
+}: TodoTemplateProps) => {
   return (
     <Screen>
-      <StatusBar style="light" />
+      <StatusBar style="dark" backgroundColor={TodoTheme.colors.primary} />
       <HeaderBlock title="Todo Today !" dateText="October 20, 2022" />
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <TaskCard tasks={activeTasks} onToggleTask={handleToggleTask} />
+        <TaskCard tasks={activeTasks} onToggleTask={onToggleTask} />
         <SectionTitle>Completed</SectionTitle>
-        <TaskCard tasks={completedTasks} onToggleTask={handleToggleTask} />
-        <AddTaskButton />
+        <TaskCard tasks={completedTasks} onToggleTask={onToggleTask} />
+        <PrimaryButton label="Add Task" onPress={onAddTask} />
       </ScrollView>
     </Screen>
   );

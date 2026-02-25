@@ -1,16 +1,21 @@
 import { Screen } from "@/components/atoms";
 import { AddTaskHeader } from "@/components/molecules";
 import { AddTaskForm } from "@/components/organisms";
+import type { AddTaskInput } from "@/lib/types/todo";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, StyleSheet } from "react-native";
 
-export const AddTaskTemplate = () => {
+type AddTaskTemplateProps = {
+  onAddTask: (payload: AddTaskInput) => void;
+};
+
+export const AddTaskTemplate = ({ onAddTask }: AddTaskTemplateProps) => {
   return (
     <Screen>
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.container}>
         <AddTaskHeader title="Add New Task" />
-        <AddTaskForm />
+        <AddTaskForm onAddTask={onAddTask} />
       </ScrollView>
     </Screen>
   );

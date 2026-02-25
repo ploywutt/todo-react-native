@@ -2,7 +2,7 @@ import { TodoTheme } from "@/constants/theme";
 import type { ComponentProps } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
-type PrimaryButtonProps = ComponentProps<typeof Pressable> & {
+type PrimaryButtonProps = Omit<ComponentProps<typeof Pressable>, "children"> & {
   label: string;
 };
 

@@ -1,12 +1,6 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { ComponentProps } from "react";
-import { StyleSheet, View } from "react-native";
+import type { CategoryItem } from "@/lib/types/todo";
+import { Pressable, StyleSheet, View } from "react-native";
 import { IconBadge } from "../atoms";
-
-export type CategoryItem = {
-  id: string;
-  icon: ComponentProps<typeof MaterialCommunityIcons>["name"];
-};
 
 export const CATEGORIES: CategoryItem[] = [
   {
@@ -23,11 +17,28 @@ export const CATEGORIES: CategoryItem[] = [
   },
 ];
 
-export const CategorySelector = () => {
+type CategorySelectorProps = {
+  selectedCategory: string;
+  onCategorySelect: (categoryId: string) => void;
+};
+
+export const CategorySelector = ({
+  selectedCategory,
+  onCategorySelect,
+}: CategorySelectorProps) => {
   return (
     <View style={styles.categoryRow}>
       {CATEGORIES.map((category) => (
-        <IconBadge key={category.id} icon={category.icon} />
+        <Pressable
+          key={category.id}
+          onPress={() => onCategorySelect(category.id)}
+          hitSlop={6}
+        >
+          <IconBadge
+            icon={category.icon}
+            variant={selectedCategory === category.id ? "muted" : "default"}
+          />
+        </Pressable>
       ))}
     </View>
   );

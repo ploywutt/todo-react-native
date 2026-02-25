@@ -1,6 +1,6 @@
 import { IconBadge } from "@/components/atoms/iconBadge";
 import { TodoTheme } from "@/constants/theme";
-import type { TaskItem } from "@/lib/data/todo";
+import type { TaskItem } from "@/lib/types/todo";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox } from "../atoms";
 

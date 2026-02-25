@@ -1,4 +1,3 @@
-export * from "./addTaskButton";
 export * from "./addTaskHeader";
 export * from "./categorySelector";
 export * from "./headerBlock";
