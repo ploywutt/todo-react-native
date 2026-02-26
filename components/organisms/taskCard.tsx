@@ -6,9 +6,10 @@ import { StyleSheet, View } from "react-native";
 type TaskCardProps = {
   tasks: TaskItem[];
   onToggleTask?: (taskId: string) => void;
+  onOpenTask?: (taskId: string) => void;
 };
 
-export const TaskCard = ({ tasks, onToggleTask }: TaskCardProps) => {
+export const TaskCard = ({ tasks, onToggleTask, onOpenTask }: TaskCardProps) => {
   return (
     <View style={styles.card}>
       {tasks.map((task, index) => {
@@ -19,6 +20,7 @@ export const TaskCard = ({ tasks, onToggleTask }: TaskCardProps) => {
             isCompleted={task.completed}
             isLast={index === tasks.length - 1}
             onToggle={() => onToggleTask?.(task.id)}
+            onOpenTask={() => onOpenTask?.(task.id)}
           />
         );
       })}

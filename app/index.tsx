@@ -19,12 +19,17 @@ export default function Page() {
     router.push("/add-task");
   }, []);
 
+  const handleOpenTask = useCallback((taskId: string) => {
+    router.push(`/task/${taskId}`);
+  }, []);
+
   return (
     <TodoTemplate
       activeTasks={activeTasks}
       completedTasks={completedTasks}
       onToggleTask={toggle}
       onAddTask={handleAddTask}
+      onOpenTask={handleOpenTask}
     />
   );
 }

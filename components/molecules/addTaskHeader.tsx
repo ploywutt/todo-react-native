@@ -1,24 +1,22 @@
 import { TodoTheme } from "@/constants/theme";
-import { Link } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type AddTaskHeaderProps = {
   title: string;
+  onClose?: () => void;
 };
 
-export const AddTaskHeader = ({ title }: AddTaskHeaderProps) => {
+export const AddTaskHeader = ({ title, onClose }: AddTaskHeaderProps) => {
   return (
     <View style={styles.header}>
-      <Link href="/" asChild>
-        <Pressable style={styles.closeButton}>
-          <MaterialCommunityIcons
-            name="close"
-            size={20}
-            color={TodoTheme.colors.secondary}
-          />
-        </Pressable>
-      </Link>
+      <Pressable style={styles.closeButton} onPress={onClose}>
+        <MaterialCommunityIcons
+          name="close"
+          size={20}
+          color={TodoTheme.colors.secondary}
+        />
+      </Pressable>
       <Text style={styles.headerTitle}>{title}</Text>
       <View style={styles.headerSpacer} />
     </View>

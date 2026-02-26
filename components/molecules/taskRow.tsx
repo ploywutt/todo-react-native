@@ -1,7 +1,7 @@
 import { IconBadge } from "@/components/atoms/iconBadge";
 import { TodoTheme } from "@/constants/theme";
 import type { TaskItem } from "@/lib/types/todo";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CheckBox } from "../atoms";
 
 type TaskRowProps = {
@@ -9,6 +9,7 @@ type TaskRowProps = {
   isCompleted: boolean;
   isLast: boolean;
   onToggle?: () => void;
+  onOpenTask?: () => void;
 };
 
 export const TaskRow = ({
@@ -16,13 +17,14 @@ export const TaskRow = ({
   isCompleted,
   isLast,
   onToggle,
+  onOpenTask,
 }: TaskRowProps) => {
   const variant = isCompleted ? "muted" : "default";
 
   return (
     <View style={[styles.taskRow, isLast ? styles.taskRowLast : null]}>
       <IconBadge variant={variant} icon={task.icon} />
-      <View style={styles.taskText}>
+      <Pressable style={styles.taskText} onPress={onOpenTask}>
         <Text style={[styles.taskTitle, isCompleted && styles.taskTitleMuted]}>
           {task.title}
         </Text>
@@ -31,7 +33,7 @@ export const TaskRow = ({
             {task.time}
           </Text>
         ) : null}
-      </View>
+      </Pressable>
       <CheckBox checked={isCompleted} onToggle={onToggle} />
     </View>
   );

@@ -1,14 +1,20 @@
 import { TodoTheme } from "@/constants/theme";
-import type { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-type TextInputFieldProps = ComponentProps<typeof TextInput>;
+type TextInputFieldProps = ComponentProps<typeof TextInput> & {
+  hasError?: boolean;
+};
 
-export const TextInputField = ({ style, ...props }: TextInputFieldProps) => {
+export const TextInputField = ({
+  hasError,
+  style,
+  ...props
+}: TextInputFieldProps) => {
   return (
     <TextInput
-      placeholderTextColor={TodoTheme.colors.textDisabled}
-      style={[styles.input, style]}
+      placeholderTextColor={TodoTheme.colors.textPlaceholder}
+      style={[styles.input, hasError ? styles.inputError : null, style]}
       {...props}
     />
   );
@@ -24,5 +30,8 @@ const styles = StyleSheet.create({
     borderColor: TodoTheme.colors.border,
     fontSize: 14,
     color: TodoTheme.colors.textPrimary,
+  },
+  inputError: {
+    borderColor: TodoTheme.colors.danger,
   },
 });

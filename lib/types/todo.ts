@@ -6,6 +6,7 @@ export type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
 export type TaskItem = {
   id: string;
   title: string;
+  note: string | null;
   date: string | null;
   time: string | null;
   icon: IconName;
@@ -19,6 +20,7 @@ export type CategoryItem = {
 
 export type AddTaskInput = {
   title: string;
+  note: string | null;
   date: string | null;
   time: string | null;
   icon: IconName;

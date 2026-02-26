@@ -4,6 +4,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "1",
     title: "Study lesson",
+    note: null,
     date: null,
     time: null,
     icon: "book-open-variant",
@@ -12,6 +13,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "2",
     title: "Run 5k",
+    note: null,
     date: null,
     time: "4:00pm",
     icon: "trophy-outline",
@@ -20,6 +22,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "3",
     title: "Go to party",
+    note: null,
     date: null,
     time: "10:00pm",
     icon: "calendar-blank",
@@ -28,6 +31,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "4",
     title: "Game meetup",
+    note: null,
     date: null,
     time: "1:00pm",
     icon: "calendar-blank",
@@ -36,6 +40,7 @@ export const TASKS: TaskItem[] = [
   {
     id: "5",
     title: "Take out trash",
+    note: null,
     date: null,
     time: null,
     icon: "book-open-variant",

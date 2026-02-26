@@ -31,6 +31,8 @@ const formatTime = (value: Date) => {
 export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
   const [selectedCategory, setSelectedCategory] = useState("study");
   const [title, setTitle] = useState("");
+  const [note, setNote] = useState("");
+  const [titleError, setTitleError] = useState("");
   const [dateText, setDateText] = useState("");
   const [timeText, setTimeText] = useState("");
   const [datePickerValue, setDatePickerValue] = useState(new Date());
@@ -61,8 +63,10 @@ export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
   const handleAddTask = () => {
     const trimmedTitle = title.trim();
     if (!trimmedTitle) {
+      setTitleError("Task title is required.");
       return;
     }
+    setTitleError("");
 
     const selected = CATEGORIES.find(
       (category) => category.id === selectedCategory,
@@ -70,9 +74,11 @@ export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
     const icon = selected?.icon ?? "book-open-variant";
     const trimmedDate = dateText.trim();
     const trimmedTime = timeText.trim();
+    const trimmedNote = note.trim();
 
     onAddTask({
       title: trimmedTitle,
+      note: trimmedNote || null,
       date: trimmedDate || null,
       time: trimmedTime || null,
       icon,
@@ -85,9 +91,15 @@ export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
       <TextInputField
         placeholder="Task Title"
         value={title}
-        onChangeText={setTitle}
+        onChangeText={(text) => {
+          setTitle(text);
+          if (titleError) {
+            setTitleError("");
+          }
+        }}
+        hasError={Boolean(titleError)}
       />
-
+      {titleError ? <Text style={styles.errorText}>{titleError}</Text> : null}
       <FieldLabel>Category</FieldLabel>
       <CategorySelector
         selectedCategory={selectedCategory}
@@ -165,7 +177,13 @@ export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
       )}
 
       <FieldLabel>Notes</FieldLabel>
-      <TextInputField placeholder="Notes" multiline style={styles.textArea} />
+      <TextInputField
+        placeholder="Notes"
+        multiline
+        style={styles.textArea}
+        value={note}
+        onChangeText={setNote}
+      />
 
       <PrimaryButton
         label="Save"
@@ -193,7 +211,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   placeholderText: {
-    color: "#9EA3AE",
+    color: TodoTheme.colors.textPlaceholder,
+  },
+  errorText: {
+    color: TodoTheme.colors.danger,
+    fontSize: 12,
+    marginTop: -8,
   },
   textArea: {
     height: 140,

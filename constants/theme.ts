@@ -12,7 +12,9 @@ export const TodoTheme = {
     textSecondary: "#3D2E83",
     textMuted: "#6F66A6",
     textDisabled: "#8D86B8",
+    textPlaceholder: "#9EA3AE",
     secondary: "#11CFA0",
+    danger: "#D22C2C",
     shadow: "#211951",
   },
 };

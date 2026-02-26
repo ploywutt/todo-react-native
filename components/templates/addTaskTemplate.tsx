@@ -7,14 +7,18 @@ import { ScrollView, StyleSheet } from "react-native";
 
 type AddTaskTemplateProps = {
   onAddTask: (payload: AddTaskInput) => void;
+  onClose?: () => void;
 };
 
-export const AddTaskTemplate = ({ onAddTask }: AddTaskTemplateProps) => {
+export const AddTaskTemplate = ({
+  onAddTask,
+  onClose,
+}: AddTaskTemplateProps) => {
   return (
     <Screen>
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.container}>
-        <AddTaskHeader title="Add New Task" />
+        <AddTaskHeader title="Add New Task" onClose={onClose} />
         <AddTaskForm onAddTask={onAddTask} />
       </ScrollView>
     </Screen>

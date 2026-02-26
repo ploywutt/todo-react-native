@@ -40,6 +40,7 @@ export const useTodos = () => {
       title: trimmed,
       date: null,
       time: null,
+      note: null,
       icon: "book-open-variant",
       completed: false,
     };

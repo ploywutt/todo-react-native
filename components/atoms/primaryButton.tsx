@@ -9,16 +9,21 @@ type PrimaryButtonProps = Omit<ComponentProps<typeof Pressable>, "children"> & {
 export const PrimaryButton = ({
   label,
   style,
+  disabled,
   ...props
 }: PrimaryButtonProps) => {
   const composedStyle: ComponentProps<typeof Pressable>["style"] =
     typeof style === "function"
-      ? (state) => [styles.button, style(state)]
-      : [styles.button, style];
+      ? (state) => [
+          styles.button,
+          disabled && styles.buttonDisabled,
+          style(state),
+        ]
+      : [styles.button, disabled && styles.buttonDisabled, style];
 
   return (
-    <Pressable style={composedStyle} {...props}>
-      <Text style={styles.text}>{label}</Text>
+    <Pressable disabled={disabled} style={composedStyle} {...props}>
+      <Text style={[styles.text, disabled && styles.textDisabled]}>{label}</Text>
     </Pressable>
   );
 };
@@ -36,9 +41,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 12 },
     elevation: 6,
   },
+  buttonDisabled: {
+    backgroundColor: TodoTheme.colors.textDisabled,
+    shadowOpacity: 0,
+    elevation: 0,
+  },
   text: {
     color: TodoTheme.colors.onPrimary,
     fontSize: 16,
     fontWeight: "700",
+  },
+  textDisabled: {
+    color: TodoTheme.colors.textSecondary,
   },
 });

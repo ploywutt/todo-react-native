@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from "react-native";
 
 type HeaderBlockProps = {
   title: string;
+  isDate?: boolean;
 };
 
-export const HeaderBlock = ({ title }: HeaderBlockProps) => {
+export const HeaderBlock = ({ title, isDate = true }: HeaderBlockProps) => {
   const date = new Date().toLocaleDateString(undefined, {
     year: "numeric",
     month: "2-digit",
@@ -14,7 +15,7 @@ export const HeaderBlock = ({ title }: HeaderBlockProps) => {
 
   return (
     <View style={styles.header}>
-      <Text style={styles.headerDate}>{date}</Text>
+      {isDate ? <Text style={styles.headerDate}>{date}</Text> : null}
       <Text style={styles.headerTitle}>{title}</Text>
     </View>
   );

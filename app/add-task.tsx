@@ -5,12 +5,17 @@ import { router } from "expo-router";
 import { Alert, Platform } from "react-native";
 
 export default function AddTaskPage() {
+  const handleClose = () => {
+    router.back();
+  };
+
   const handleAddTask = async (payload: AddTaskInput) => {
     const storedTodos = await loadTodos();
 
     const newTodo: TaskItem = {
       id: Date.now().toString(),
       title: payload.title,
+      note: payload.note,
       date: payload.date,
       time: payload.time,
       icon: payload.icon,
@@ -28,5 +33,5 @@ export default function AddTaskPage() {
     router.back();
   };
 
-  return <AddTaskTemplate onAddTask={handleAddTask} />;
+  return <AddTaskTemplate onAddTask={handleAddTask} onClose={handleClose} />;
 }

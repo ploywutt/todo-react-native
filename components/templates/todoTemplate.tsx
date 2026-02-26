@@ -11,6 +11,7 @@ type TodoTemplateProps = {
   completedTasks: TaskItem[];
   onToggleTask?: (taskId: string) => void;
   onAddTask?: () => void;
+  onOpenTask?: (taskId: string) => void;
 };
 
 export const TodoTemplate = ({
@@ -18,6 +19,7 @@ export const TodoTemplate = ({
   completedTasks,
   onToggleTask,
   onAddTask,
+  onOpenTask,
 }: TodoTemplateProps) => {
   return (
     <Screen>
@@ -27,9 +29,17 @@ export const TodoTemplate = ({
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <TaskCard tasks={activeTasks} onToggleTask={onToggleTask} />
+        <TaskCard
+          tasks={activeTasks}
+          onToggleTask={onToggleTask}
+          onOpenTask={onOpenTask}
+        />
         <SectionTitle>Completed</SectionTitle>
-        <TaskCard tasks={completedTasks} onToggleTask={onToggleTask} />
+        <TaskCard
+          tasks={completedTasks}
+          onToggleTask={onToggleTask}
+          onOpenTask={onOpenTask}
+        />
         <PrimaryButton label="Add Task" onPress={onAddTask} />
       </ScrollView>
     </Screen>

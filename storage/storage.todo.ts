@@ -16,6 +16,7 @@ const normalizeTask = (raw: unknown): TaskItem | null => {
 
   const completed =
     typeof value.completed === "boolean" ? value.completed : false;
+  const note = typeof value.note === "string" ? value.note : null;
   const date = typeof value.date === "string" ? value.date : null;
   const time = typeof value.time === "string" ? value.time : null;
   const icon = typeof value.icon === "string" ? value.icon : DEFAULT_ICON;
@@ -23,6 +24,7 @@ const normalizeTask = (raw: unknown): TaskItem | null => {
   return {
     id: value.id,
     title: value.title,
+    note,
     completed,
     date,
     time,
