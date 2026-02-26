@@ -1,50 +1,88 @@
-# Welcome to your Expo app 👋
+# Todo App (Expo + TypeScript)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile-first Todo app built with Expo Router, Atomic Design structure, and AsyncStorage persistence.
 
-## Get started
+## Features
+
+- File-based routing with Expo Router
+- Atomic component structure (`atoms`, `molecules`, `organisms`, `templates`)
+- Todo persistence with `@react-native-async-storage/async-storage`
+- Add Task form with category selection
+- Native Date picker and Time picker (`@react-native-community/datetimepicker`)
+- Completed toggle with immediate persistence
+
+## Tech Stack
+
+- Expo SDK 54
+- React Native 0.81
+- TypeScript
+- Expo Router
+- AsyncStorage
+- React Native Community DateTimePicker
+
+## Project Structure
+
+```txt
+app/
+  index.tsx
+  add-task.tsx
+components/
+  atoms/
+  molecules/
+  organisms/
+  templates/
+hooks/
+  useTodo.ts
+lib/
+  data/
+    todo.ts
+  types/
+    todo.ts
+storage/
+  storage.todo.ts
+```
+
+## Getting Started
 
 1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+2. Start development server
 
 ```bash
+npx expo start
+```
+
+3. Run by platform
+
+```bash
+npm run ios
+npm run android
+npm run web
+```
+
+## Scripts
+
+```bash
+npm run start
+npm run ios
+npm run android
+npm run web
+npm run lint
 npm run reset-project
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Data Flow
 
-## Learn more
+- `hooks/useTodo.ts` loads and saves todos to AsyncStorage.
+- `storage/storage.todo.ts` handles serialization and normalization.
+- `app/index.tsx` reads todo state from hook and passes data to `TodoTemplate`.
+- `app/add-task.tsx` saves new tasks and navigates back.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Notes
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- First load seeds default tasks from `lib/data/todo.ts` when storage is empty.
+- Shared app types live in `lib/types/todo.ts`.
