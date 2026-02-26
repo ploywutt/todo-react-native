@@ -5,27 +5,19 @@ import {
   InputWithIcon,
 } from "@/components/molecules";
 import { TodoTheme } from "@/constants/theme";
+import { addTaskInputSchema } from "@/lib/schemas/todo";
 import type { AddTaskInput } from "@/lib/types/todo";
+import { formatDate, formatTime } from "@/lib/utils/dateTime";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import DateTimePicker, {
   type DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, Text } from "react-native";
+import { z } from "zod";
 
 type AddTaskProps = {
   onAddTask: (payload: AddTaskInput) => void;
-};
-
-const formatDate = (value: Date) => {
-  const year = value.getFullYear();
-  const month = `${value.getMonth() + 1}`.padStart(2, "0");
-  const day = `${value.getDate()}`.padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
-
-const formatTime = (value: Date) => {
-  return value.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 };
 
 export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
@@ -61,28 +53,32 @@ export const AddTaskForm = ({ onAddTask }: AddTaskProps) => {
   };
 
   const handleAddTask = () => {
-    const trimmedTitle = title.trim();
-    if (!trimmedTitle) {
-      setTitleError("Task title is required.");
-      return;
-    }
-    setTitleError("");
-
     const selected = CATEGORIES.find(
       (category) => category.id === selectedCategory,
     );
     const icon = selected?.icon ?? "book-open-variant";
-    const trimmedDate = dateText.trim();
-    const trimmedTime = timeText.trim();
-    const trimmedNote = note.trim();
 
-    onAddTask({
-      title: trimmedTitle,
-      note: trimmedNote || null,
-      date: trimmedDate || null,
-      time: trimmedTime || null,
+    const validation = addTaskInputSchema.safeParse({
+      title,
+      note,
+      date: dateText,
+      time: timeText,
       icon,
     });
+
+    if (!validation.success) {
+      const errorTree = z.treeifyError(validation.error);
+      const message =
+        errorTree.properties?.title?.errors?.[0] ??
+        errorTree.properties?.date?.errors?.[0] ??
+        errorTree.properties?.time?.errors?.[0] ??
+        "Invalid task.";
+      setTitleError(message);
+      return;
+    }
+
+    setTitleError("");
+    onAddTask(validation.data);
   };
 
   return (

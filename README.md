@@ -11,6 +11,8 @@ A mobile-first Todo app built with Expo Router, Atomic Design structure, and Asy
 - Native Date picker and Time picker (`@react-native-community/datetimepicker`)
 - Notes field in Add Task and Task Detail
 - Task detail screen (`/task/[id]`)
+- Runtime validation with Zod (form submit + storage hydration)
+- Date format: `YYYY-MM-DD`, Time format: `HH:mm` (24h)
 - Completed toggle with immediate persistence
 
 ## Tech Stack
@@ -21,6 +23,7 @@ A mobile-first Todo app built with Expo Router, Atomic Design structure, and Asy
 - Expo Router
 - AsyncStorage
 - React Native Community DateTimePicker
+- Zod
 
 ## Project Structure
 
@@ -41,9 +44,13 @@ hooks/
 lib/
   data/
     todo.ts
+  schemas/
+    todo.ts
   types/
     index.ts
     todo.ts
+  utils/
+    dateTime.ts
 storage/
   storage.todo.ts
 constants/

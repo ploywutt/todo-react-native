@@ -10,7 +10,10 @@ type TodoDetailTemplateProps = {
   onBack?: () => void;
 };
 
-export const TodoDetailTemplate = ({ task, onBack }: TodoDetailTemplateProps) => {
+export const TodoDetailTemplate = ({
+  task,
+  onBack,
+}: TodoDetailTemplateProps) => {
   return (
     <Screen>
       <StatusBar style="light" backgroundColor={TodoTheme.colors.primary} />
@@ -19,10 +22,10 @@ export const TodoDetailTemplate = ({ task, onBack }: TodoDetailTemplateProps) =>
       <View style={styles.body}>
         {task ? (
           <View style={styles.card}>
-            <Text style={styles.meta}>Note: {task.note ?? "-"}</Text>
-            <Text style={styles.meta}>Date: {task.date ?? "-"}</Text>
-            <Text style={styles.meta}>Time: {task.time ?? "-"}</Text>
-            <Text style={styles.meta}>
+            <Text style={styles.noteText}>{task.note ?? "-"}</Text>
+            <Text style={styles.descText}>Date: {task.date ?? "-"}</Text>
+            <Text style={styles.descText}>Time: {task.time ?? "-"}</Text>
+            <Text style={styles.descText}>
               Status: {task.completed ? "Completed" : "Active"}
             </Text>
           </View>
@@ -51,10 +54,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: TodoTheme.colors.border,
     padding: 16,
-    gap: 8,
+    gap: 16,
   },
-  meta: {
+  noteText: {
     color: TodoTheme.colors.textSecondary,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  descText: {
+    color: TodoTheme.colors.textMuted,
     fontSize: 15,
   },
 });

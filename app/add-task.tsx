@@ -1,4 +1,5 @@
 import { AddTaskTemplate } from "@/components/templates/addTaskTemplate";
+import { addTaskInputSchema } from "@/lib/schemas/todo";
 import type { AddTaskInput, TaskItem } from "@/lib/types/todo";
 import { loadTodos, saveTodos } from "@/storage/storage.todo";
 import { router } from "expo-router";
@@ -10,15 +11,22 @@ export default function AddTaskPage() {
   };
 
   const handleAddTask = async (payload: AddTaskInput) => {
+    const validation = addTaskInputSchema.safeParse(payload);
+    if (!validation.success) {
+      Alert.alert("Invalid task", "Please check your task details.");
+      return;
+    }
+
     const storedTodos = await loadTodos();
+    const input = validation.data;
 
     const newTodo: TaskItem = {
       id: Date.now().toString(),
-      title: payload.title,
-      note: payload.note,
-      date: payload.date,
-      time: payload.time,
-      icon: payload.icon,
+      title: input.title,
+      note: input.note,
+      date: input.date,
+      time: input.time,
+      icon: input.icon,
       completed: false,
     };
 

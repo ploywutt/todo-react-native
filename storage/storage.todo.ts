@@ -1,3 +1,4 @@
+import { taskFromStorageSchema } from "@/lib/schemas/todo";
 import type { TaskItem } from "@/lib/types/todo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -5,30 +6,21 @@ const KEY = "TODOS_V1";
 const DEFAULT_ICON: TaskItem["icon"] = "book-open-variant";
 
 const normalizeTask = (raw: unknown): TaskItem | null => {
-  if (!raw || typeof raw !== "object") {
+  const parsed = taskFromStorageSchema.safeParse(raw);
+  if (!parsed.success) {
     return null;
   }
 
-  const value = raw as Partial<TaskItem>;
-  if (typeof value.id !== "string" || typeof value.title !== "string") {
-    return null;
-  }
-
-  const completed =
-    typeof value.completed === "boolean" ? value.completed : false;
-  const note = typeof value.note === "string" ? value.note : null;
-  const date = typeof value.date === "string" ? value.date : null;
-  const time = typeof value.time === "string" ? value.time : null;
-  const icon = typeof value.icon === "string" ? value.icon : DEFAULT_ICON;
+  const value = parsed.data;
 
   return {
     id: value.id,
     title: value.title,
-    note,
-    completed,
-    date,
-    time,
-    icon,
+    note: value.note,
+    completed: value.completed ?? false,
+    date: value.date,
+    time: value.time,
+    icon: value.icon ?? DEFAULT_ICON,
   };
 };
 
