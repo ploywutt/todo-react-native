@@ -7,7 +7,7 @@ type TextInputFieldProps = ComponentProps<typeof TextInput>;
 export const TextInputField = ({ style, ...props }: TextInputFieldProps) => {
   return (
     <TextInput
-      placeholderTextColor="#9EA3AE"
+      placeholderTextColor={TodoTheme.colors.textDisabled}
       style={[styles.input, style]}
       {...props}
     />

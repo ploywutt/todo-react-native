@@ -3,14 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 
 type HeaderBlockProps = {
   title: string;
-  dateText: string;
 };
 
-export const HeaderBlock = ({ title, dateText }: HeaderBlockProps) => {
+export const HeaderBlock = ({ title }: HeaderBlockProps) => {
+  const date = new Date().toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
   return (
     <View style={styles.header}>
+      <Text style={styles.headerDate}>{date}</Text>
       <Text style={styles.headerTitle}>{title}</Text>
-      <Text style={styles.headerDate}>{dateText}</Text>
     </View>
   );
 };

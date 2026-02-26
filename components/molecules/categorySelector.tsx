@@ -49,11 +49,4 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 12,
   },
-  categoryItem: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
-  },
 });

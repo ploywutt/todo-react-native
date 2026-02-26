@@ -21,8 +21,8 @@ export const TodoTemplate = ({
 }: TodoTemplateProps) => {
   return (
     <Screen>
-      <StatusBar style="dark" backgroundColor={TodoTheme.colors.primary} />
-      <HeaderBlock title="Todo Today !" dateText="October 20, 2022" />
+      <StatusBar style="light" backgroundColor={TodoTheme.colors.primary} />
+      <HeaderBlock title="Let's finish the jobs" />
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
